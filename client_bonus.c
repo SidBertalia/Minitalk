@@ -28,6 +28,7 @@ void	check_receivement(int signum)
 int	send_signal(char *str, pid_t pid_num)
 {
 	int		i;
+	int		j;
 	int		bit_pos;
 
 	i = 0;
@@ -36,8 +37,8 @@ int	send_signal(char *str, pid_t pid_num)
 		bit_pos = 7;
 		while (bit_pos >= 0)
 		{
-			if (kill(pid_num, (int []){SIGUSR1, SIGUSR2}
-				[(str[i] & (1 << bit_pos)) > 0]) < 0)
+			j = (str[i] & (1 << bit_pos)) > 0;
+			if (kill(pid_num, (int []){SIGUSR1, SIGUSR2}[j]) < 0)
 				return (1);
 			if (usleep(100) == -1)
 				return (1);
