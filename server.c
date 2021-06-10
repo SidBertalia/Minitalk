@@ -15,6 +15,7 @@ void	receive_signal(int bit, pid_t client_pid)
 		if (current_char == '\0' || len >= 1000)
 		{
 			write(1, buffer, len - (current_char == '\0'));
+			write(1, "\n", 2);
 			len = 0;
 			if (current_char == '\0')
 				kill(client_pid, SIGUSR1);
@@ -79,7 +80,7 @@ int	main(int argc, char **argv)
 	pid = getpid();
 	write(1, "\033[33mUse this PID to send message: \033[0m", 40);
 	put_pid(pid);
-	write(1, "\n", 1);
+	write(1, "\n", 2);
 	while (1)
 		pause();
 	(void)argv;
